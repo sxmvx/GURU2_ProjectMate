@@ -16,9 +16,9 @@ class Login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        val kakaoLoginBtn = findViewById<Button>(R.id.kakao_login_button) // 버튼 ID 일치해야 함
+        //val kakaoLoginBtn = findViewById<Button>(R.id.kakao_login_button) // 버튼 ID 일치해야 함
 
-        kakaoLoginBtn.setOnClickListener {
+        //kakaoLoginBtn.setOnClickListener {
             if (UserApiClient.instance.isKakaoTalkLoginAvailable(this)) {
                 UserApiClient.instance.loginWithKakaoTalk(this) { token, error ->
                     if (error != null) {
