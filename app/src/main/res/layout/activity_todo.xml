@@ -34,6 +34,7 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
+        <!-- 팀 이름 -->
         <TextView
             android:id="@+id/teamNameTextView"
             android:layout_width="wrap_content"
@@ -47,5 +48,12 @@
     </LinearLayout>
 
     <!-- 하단: todolist 정보 -->
+<androidx.recyclerview.widget.RecyclerView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+</androidx.recyclerview.widget.RecyclerView>
+
 
 </LinearLayout>
