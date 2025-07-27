@@ -25,8 +25,8 @@ class Login : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
+        //카카오 로그인 버튼을 누르면 로그인이 진행됨
         val kakaoLoginBtn = findViewById<ImageButton>(R.id.kakaoLoginBtn)
-
         kakaoLoginBtn.setOnClickListener{
             val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
                 if (error != null) {
@@ -65,7 +65,8 @@ class Login : AppCompatActivity() {
         }
     }
 
-    private fun goToMain() {
+    //메인 화면 돌아가기
+    private fun goToMain(){
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()

@@ -43,6 +43,9 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation("com.kakao.sdk:v2-all:2.21.4") // kakao 전체 모듈 설치
+    implementation ("com.github.bumptech.glide:glide:4.15.1") // glide 의존성 추가
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
