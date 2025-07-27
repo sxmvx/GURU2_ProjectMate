@@ -1,3 +1,8 @@
 package com.android.projectmate
 
-data class Comment(val text: String)
+data class Comment(
+    var name: String = "",
+    var content: String = "",
+    var timestamp: Long = 0L
+)
+

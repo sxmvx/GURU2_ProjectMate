@@ -114,4 +114,14 @@
             app:iconTint="#9D9D9D" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="저장"
+        android:layout_gravity="end"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone" /> <!-- 기본은 안 보이게 -->
+
 </LinearLayout>

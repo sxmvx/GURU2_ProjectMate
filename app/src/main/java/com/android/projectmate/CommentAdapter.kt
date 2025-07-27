@@ -20,7 +20,7 @@ class CommentAdapter(private val commentList: MutableList<Comment>) :
     }
 
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
-        holder.commentText.text = commentList[position].text
+        holder.commentText.text = commentList[position].content
     }
 
     override fun getItemCount(): Int = commentList.size
