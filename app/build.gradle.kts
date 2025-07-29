@@ -44,6 +44,10 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation("com.kakao.sdk:v2-all:2.21.4") // kakao 전체 모듈 설치
+    implementation ("com.github.bumptech.glide:glide:4.15.1") // glide 의존성 추가
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1") // "
+
     //implementation(libs.firebase.analytics)
     //implementation(libs.firebase.auth)
     //implementation(libs.firebase.database)
@@ -54,9 +58,14 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth-ktx:23.2.1")
     implementation("com.google.firebase:firebase-database-ktx:21.0.0")
-    implementation("com.google.firebase:firebase-firestore-ktx:25.1.4")
+
+    implementation(libs.firebase.database)
+    implementation(libs.firebase.auth)
+    implementation(libs.firebase.firestore.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation("com.google.android.material:material:1.9.0")
 }

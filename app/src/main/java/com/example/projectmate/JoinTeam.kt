@@ -64,10 +64,16 @@ class JoinTeam : AppCompatActivity() {
                         db.collection("teams").document(teamCode)
                             .update("members.$uid", true)
 
+
                         // 유저의 joinedTeams에 팀 등록
                         db.collection("users"). document(uid)
                             .collection("joinedTeams").document(teamCode)
                             .set(mapOf("joinedAt" to Timestamp.now()))
+
+                        //2. 유저가 가입한 팀 목록에 팀 코드 추가
+                        val userTeamsRef = FirebaseDatabase.getInstance().getReference("users").child(uid).child("teams")
+                        userTeamsRef.child(teamCode).setValue(true)
+
 
                         Toast.makeText(this, "\"$teamName\" 팀에 참여했습니다!", Toast.LENGTH_SHORT).show()
 
