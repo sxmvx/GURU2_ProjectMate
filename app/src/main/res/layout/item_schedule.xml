@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- 색상 태그 표시 -->
+    <View
+        android:id="@+id/viewTag"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginEnd="8dp"
+        android:background="#AAAAAA" />
+
+    <!-- 일정 텍스트 -->
+    <TextView
+        android:id="@+id/textSchedule"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="일정 내용"
+        android:textSize="16sp" />
+</LinearLayout>
