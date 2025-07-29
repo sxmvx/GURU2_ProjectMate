@@ -3,16 +3,13 @@ package com.example.projectmate
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 
-class Todo : AppCompatActivity() {
+class Todo_team : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_todo)
+        setContentView(R.layout.activity_todo_team)
 
         val nickname = intent.getStringExtra("nickname")
         val profileUrl = intent.getStringExtra("profileUrl")

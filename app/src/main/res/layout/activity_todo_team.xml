@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Todo">
+    tools:context=".Todo_team">
 
     <!-- 상단: 프로필 정보 -->
     <LinearLayout

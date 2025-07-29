@@ -17,7 +17,7 @@
         android:theme="@style/Theme.ProjectMate"
         tools:targetApi="31">
         <activity
-            android:name=".Todo"
+            android:name=".Todo_team"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

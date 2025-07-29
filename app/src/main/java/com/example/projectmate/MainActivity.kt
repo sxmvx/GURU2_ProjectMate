@@ -2,12 +2,8 @@ package com.example.projectmate
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.kakao.sdk.user.UserApiClient
 
 class MainActivity : AppCompatActivity() {
@@ -38,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         val TodoButton = findViewById<Button>(R.id.TodoButton)
 
         TodoButton.setOnClickListener {
-            val intent = Intent(this, Todo::class.java)
+            val intent = Intent(this, Todo_team::class.java)
             intent.putExtra("nickname", UserInfo.nickname)
             intent.putExtra("profileUrl", UserInfo.profileUrl)
             startActivity(intent)
