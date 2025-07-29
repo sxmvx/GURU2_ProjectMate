@@ -62,7 +62,7 @@ class JoinTeam : AppCompatActivity() {
                         //1. 팀 멤버 목록에 현재 UID 추가
                         database.child(teamCode).child("members").child(uid).setValue(true)
 
-                        //2. 유저가 가입한 팀 목록에 팀 코드 주가
+                        //2. 유저가 가입한 팀 목록에 팀 코드 추가
                         val userTeamsRef = FirebaseDatabase.getInstance().getReference("users").child(uid).child("teams")
                         userTeamsRef.child(teamCode).setValue(true)
 

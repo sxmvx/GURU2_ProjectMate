@@ -13,7 +13,7 @@ class TeamMainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_main_team)
 
         btnExistingTeam = findViewById<Button>(R.id.btnExistingTeam)
         btnJoinTeam = findViewById<Button>(R.id.btnJoinWithCode)
