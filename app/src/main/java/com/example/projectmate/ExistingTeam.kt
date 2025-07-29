@@ -8,18 +8,15 @@ import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ReportFragment.Companion.reportFragment
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ExistingTeam : AppCompatActivity() {
 
     private lateinit var teamListView: ListView // 팀 리스트
     private lateinit var emptyTextView: TextView // 팀 없을 경우 표시
-    private lateinit var database: DatabaseReference // Firebase RD 참조
+    private val db = FirebaseFirestore.getInstance() // Firestore 인스턴스
     private val teamList = mutableListOf<String>() // 화면에 표시할 팀 이름 리스트
     private val teamIdList = mutableListOf<String>() // 내부적으로 팀 ID 저장
 
@@ -33,7 +30,6 @@ class ExistingTeam : AppCompatActivity() {
 
         teamListView = findViewById(R.id.teamListView)
         emptyTextView = findViewById(R.id.emptyTextView)
-        database = FirebaseDatabase.getInstance().reference
 
         // 리스트 어댑터
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, teamList)
@@ -51,7 +47,7 @@ class ExistingTeam : AppCompatActivity() {
         }
     }
 
-    // 현재 로그인 된 사용자의 팀 목록을 Firebase에서 불러오는 함수
+    // Firestore에서 유저가 가입한 팀 목록 불러오기
     private fun loadUserTeams(adapter: ArrayAdapter<String>) {
         val uid = currentUserUID
         if (uid == null) {
@@ -59,48 +55,40 @@ class ExistingTeam : AppCompatActivity() {
             return
         }
 
-        // 유저가 가입한 팀 ID 리스트 읽기
-        database.child("users").child(uid).child("teams")
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (!snapshot.exists()) {
-                        //가입된 팀이 없을 경우 메시지 표시
-                        emptyTextView.text = "가입된 팀이 없습니다."
-                        emptyTextView.visibility = TextView.VISIBLE
-                        return
-                    }
-
-                    //이전 데이터 초기화
-                    teamList.clear()
-                    teamIdList.clear()
-
-                    //유저가 가입한 팀 ID 하나씩 처리
-                    for (teamSnapshot in snapshot.children) {
-                        val teamId = teamSnapshot.key ?: continue
-
-                        //각 팀 ID에 해당하는 팀 이름 불러옴
-                        database.child("teams").child(teamId).child("name")
-                            .addListenerForSingleValueEvent(object : ValueEventListener {
-                                override fun onDataChange(nameSnapshot: DataSnapshot) {
-                                    val teamName = nameSnapshot.getValue(String::class.java)
-                                    if (teamName != null) {
-                                        //팀 이름과 ID를 리스트에 추가
-                                        teamList.add(teamName)
-                                        teamIdList.add(teamId)
-                                        adapter.notifyDataSetChanged() //리스트뷰 갱신
-                                    }
-                                }
-
-                                override fun onCancelled(error: DatabaseError) {
-                                    Log.e("Firebase", "팀 이름 불러오기 실패: ${error.message}")
-                                }
-                            })
-                    }
+        // Firestore에서 팀 ID 목록 불러오기
+        db.collection("users").document(uid).collection("joinedTeams")
+            .get()
+            .addOnSuccessListener { documents ->
+                if (documents.isEmpty) {
+                    emptyTextView.text = "가입된 팀이 없습니다."
+                    emptyTextView.visibility = TextView.VISIBLE
+                    return@addOnSuccessListener
                 }
 
-                override fun onCancelled(error: DatabaseError) {
-                    Log.e("Firebase", "팀 목록 불러오기 실패: ${error.message}")
+                //이전 데이터 초기화
+                teamList.clear()
+                teamIdList.clear()
+
+                for (doc in documents) {
+                    val teamId = doc.id
+
+                    // Firestore: teams/{teamId}/name 필드 불러오기
+                    db.collection("teams").document(teamId).get()
+                        .addOnSuccessListener { teamDoc ->
+                            val teamName = teamDoc.getString("name")
+                            if (teamName != null) {
+                                teamList.add(teamName)
+                                teamIdList.add(teamId)
+                                adapter.notifyDataSetChanged()
+                            }
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("Firebase", "팀 이름 불러오기 실패: ${e.message}")
+                        }
                 }
-            })
+            }
+            .addOnFailureListener { e ->
+                Log.e("Firebase", "팀 목록 불러오기 실패: ${e.message}")
+            }
     }
 }
