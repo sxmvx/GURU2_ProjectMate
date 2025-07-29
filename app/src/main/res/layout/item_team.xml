@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:gravity="center_vertical">
+
+    <!-- 색상 dot -->
+    <View
+        android:id="@+id/viewTeamColor"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/dot_circle" />
+
+    <!-- 팀명 -->
+    <TextView
+        android:id="@+id/textViewTeamName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="GURU2 - Team 19"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <!-- 역할 -->
+    <TextView
+        android:id="@+id/textViewRole"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="프론트엔드"
+        android:textSize="14sp"
+        android:textColor="#888888"
+        android:layout_marginStart="8dp" />
+
+</LinearLayout>

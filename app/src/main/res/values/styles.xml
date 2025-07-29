@@ -1,0 +1,7 @@
+<resources>
+    <style name="CalendarTitleText" parent="TextAppearance.AppCompat.Large">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#222222</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

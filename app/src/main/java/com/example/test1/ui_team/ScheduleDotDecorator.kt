@@ -1,10 +1,10 @@
 package com.example.test1.ui_team
 
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
 import com.prolificinteractive.materialcalendarview.CalendarDay
+import com.prolificinteractive.materialcalendarview.spans.DotSpan
+
 
 class ScheduleDotDecorator(
     private val dates: Collection<CalendarDay>,
@@ -16,6 +16,7 @@ class ScheduleDotDecorator(
     }
 
     override fun decorate(view: DayViewFacade) {
-        view.setBackgroundDrawable(DotDrawable(color))
+        view.addSpan(DotSpan(12f, color))
     }
 }
+

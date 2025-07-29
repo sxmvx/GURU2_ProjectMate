@@ -8,32 +8,37 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.test1.R
 
-class ScheduleAdapter : RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
+class ScheduleAdapter :
+    RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
 
-    private val items = mutableListOf<ScheduleItem>()
+    private var schedules: List<ScheduleItem> = emptyList()  // 🔧 내부에서 관리
 
-    fun submitList(newList: List<ScheduleItem>) {
-        items.clear()
-        items.addAll(newList)
-        notifyDataSetChanged()
+    fun setSchedules(newList: List<ScheduleItem>) {
+        schedules = newList
+        notifyDataSetChanged() // 전체 갱신 (간단하고 안전)
     }
 
-    class ScheduleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tagView: View = view.findViewById(R.id.viewTag)
-        val textView: TextView = view.findViewById(R.id.textSchedule)
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val contentText: TextView = view.findViewById(R.id.textScheduleContent)
+        val tagView: View = view.findViewById(R.id.viewScheduleTag)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_schedule, parent, false)
-        return ScheduleViewHolder(view)
+        return ViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
-        val item = items[position]
-        holder.textView.text = item.text
-        holder.tagView.setBackgroundColor(Color.parseColor(item.tagColor))
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = schedules[position]
+        holder.contentText.text = item.content
+
+        try {
+            holder.tagView.setBackgroundColor(Color.parseColor(item.tagColor))
+        } catch (e: Exception) {
+            holder.tagView.setBackgroundColor(Color.LTGRAY)
+        }
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = schedules.size
 }

@@ -1,6 +1,6 @@
 package com.example.test1.ui_team
 
 data class ScheduleItem(
-    val text: String,
-    val tagColor: String
+    val content: String,
+    val tagColor: String // 예: "#FF6B81", "#6C5CE7"
 )

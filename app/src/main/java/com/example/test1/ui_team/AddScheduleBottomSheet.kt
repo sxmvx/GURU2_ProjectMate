@@ -18,12 +18,13 @@ class AddScheduleBottomSheet(
 ) : BottomSheetDialogFragment() {
 
     private val colorMap = mapOf(
-        "빨강" to "#FF6B6B",
-        "파랑" to "#4DABF7",
-        "보라" to "#B197FC",
-        "초록" to "#51CF66",
-        "회색" to "#AAAAAA"
+        "핑크" to "#F5B2B0",
+        "그레이" to "#DBDBDB",
+        "하늘" to "#B9E1EF",
+        "다홍" to "#F6896B",
+        "라벤더" to "#B9A6D6"
     )
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,8 +43,10 @@ class AddScheduleBottomSheet(
 
         button.setOnClickListener {
             val text = editText.text.toString().trim()
-            if (text.isEmpty()) return@setOnClickListener
-
+            if (text.isEmpty()) {
+                Toast.makeText(requireContext(), "일정을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             val selectedColor = colorMap[spinner.selectedItem as String] ?: "#AAAAAA"
             val data = mapOf("date" to date, "text" to text, "tagColor" to selectedColor)
             val path = if (isTeamMode) "teams/$teamId/schedules" else "users/$userId/schedules"
@@ -52,8 +55,16 @@ class AddScheduleBottomSheet(
                 .add(data)
                 .addOnSuccessListener {
                     onScheduleAdded()
-                    dismiss()
+                    // 이 코드를 항상 UI 스레드에서 호출
+                    dismissAllowingStateLoss() // ← 이 함수는 dismiss()보다 더 강제적으로 닫음!
+                }
+                .addOnFailureListener {
+                    Toast.makeText(requireContext(), "일정 저장에 실패했어요.", Toast.LENGTH_SHORT).show()
+                    it.printStackTrace()
+                    dismissAllowingStateLoss() // ← 실패해도 무조건 닫기
                 }
         }
+
+
     }
 }
