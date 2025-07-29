@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<<<<<<< HEAD
     xmlns:tools="http://schemas.android.com/tools"
+=======
+>>>>>>> aa15941 (캘린더 + Firebase)
     package="com.example.test1">
 
     <application
@@ -9,13 +12,20 @@
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+<<<<<<< HEAD
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
         tools:targetApi="31">
 
+=======
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+        <!-- ✅ 앱 실행 진입점 -->
+>>>>>>> aa15941 (캘린더 + Firebase)
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
+<<<<<<< HEAD
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -23,4 +33,12 @@
 
     </application>
 
+=======
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+    </application>
+>>>>>>> aa15941 (캘린더 + Firebase)
 </manifest>

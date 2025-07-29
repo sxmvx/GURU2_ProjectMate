@@ -1,7 +1,11 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+<<<<<<< HEAD
     id("com.google.gms.google-services") // ✅ Firebase 플러그인
+=======
+    id("com.google.gms.google-services") // ✅ Firebase 플러그인 추가
+>>>>>>> aa15941 (캘린더 + Firebase)
 }
 
 android {
@@ -57,11 +61,18 @@ dependencies {
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.activity:activity-ktx:1.7.2")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+<<<<<<< HEAD
     implementation("androidx.fragment:fragment-ktx:1.6.2")
 
     implementation("com.github.prolificinteractive:material-calendarview:1.4.3")
 
     // ✅ Firebase
+=======
+
+    implementation("com.github.prolificinteractive:material-calendarview:1.4.3")
+
+    // ✅ Firestore + Firebase BOM 추가
+>>>>>>> aa15941 (캘린더 + Firebase)
     implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
     implementation("com.google.firebase:firebase-firestore-ktx")
 

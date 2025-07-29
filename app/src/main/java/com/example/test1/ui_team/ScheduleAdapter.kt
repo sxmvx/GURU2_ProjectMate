@@ -11,11 +11,11 @@ import com.example.test1.R
 class ScheduleAdapter :
     RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {
 
-    private var schedules: List<ScheduleItem> = emptyList()  // 🔧 내부에서 관리
+    private var schedules: List<ScheduleItem> = emptyList()
 
     fun setSchedules(newList: List<ScheduleItem>) {
         schedules = newList
-        notifyDataSetChanged() // 전체 갱신 (간단하고 안전)
+        notifyDataSetChanged()
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -32,7 +32,6 @@ class ScheduleAdapter :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = schedules[position]
         holder.contentText.text = item.content
-
         try {
             holder.tagView.setBackgroundColor(Color.parseColor(item.tagColor))
         } catch (e: Exception) {

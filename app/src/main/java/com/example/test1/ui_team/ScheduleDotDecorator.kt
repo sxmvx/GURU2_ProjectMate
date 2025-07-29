@@ -5,7 +5,6 @@ import com.prolificinteractive.materialcalendarview.DayViewFacade
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.spans.DotSpan
 
-
 class ScheduleDotDecorator(
     private val dates: Collection<CalendarDay>,
     private val color: Int
@@ -19,4 +18,3 @@ class ScheduleDotDecorator(
         view.addSpan(DotSpan(12f, color))
     }
 }
-

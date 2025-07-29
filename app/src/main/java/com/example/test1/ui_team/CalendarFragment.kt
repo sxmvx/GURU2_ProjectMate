@@ -27,7 +27,6 @@ abstract class CalendarFragment : Fragment() {
     private lateinit var scheduleAdapter: ScheduleAdapter
     private lateinit var textViewSelectedDate: TextView
 
-
     private val db = FirebaseFirestore.getInstance()
 
     override fun onCreateView(
@@ -40,14 +39,10 @@ abstract class CalendarFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("CalendarDebug", "onViewCreated - isTeam: ${getIsTeamMode()}, userId: ${getOwnerId()}, teamId: ${getTeamId()}")
+        calendarView = view.findViewById(R.id.calendarView)
+        recyclerView = view.findViewById(R.id.recyclerViewSchedule)
+        textViewSelectedDate = view.findViewById(R.id.textViewSelectedDate)
 
-        calendarView = view.findViewById<MaterialCalendarView>(R.id.calendarView)
-        recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewSchedule)
-        textViewSelectedDate = view.findViewById<TextView>(R.id.textViewSelectedDate)
-
-        // [추가] 상단 프로필/텍스트뷰 구분
-        // onViewCreated 내에 추가
         val profileFrame = view.findViewById<View>(R.id.profileFrame)
         val textViewGreeting = view.findViewById<TextView>(R.id.textViewGreeting)
 
@@ -59,15 +54,12 @@ abstract class CalendarFragment : Fragment() {
             profileFrame.visibility = View.VISIBLE
         }
 
-
-        // 🔹 일정 리스트 초기화 (빈 리스트로 시작)
         scheduleAdapter = ScheduleAdapter()
         recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = scheduleAdapter
         }
 
-        // 🔹 날짜 선택 이벤트 처리
         calendarView.setOnDateChangedListener { _, date, _ ->
             val clickedDate = String.format(Locale.getDefault(), "%04d-%02d-%02d", date.year, date.month + 1, date.day)
             textViewSelectedDate.text = "${date.month + 1}.${date.day}"
@@ -79,19 +71,15 @@ abstract class CalendarFragment : Fragment() {
                 teamId = getTeamId(),
                 onScheduleAdded = {
                     loadSchedules(clickedDate)
-                    decorateAllScheduleDots()
+                    decorateCalendarWithDots(clickedDate)
                     calendarView.invalidateDecorators()
                 }
             ).show(parentFragmentManager, "AddSchedule")
 
             loadSchedules(clickedDate)
+            decorateCalendarWithDots(clickedDate)
         }
-
-        // 🔹 초기 dot 표시
-        decorateAllScheduleDots()
-        calendarView.invalidateDecorators()
     }
-
 
     private fun loadSchedules(date: String) {
         val path = if (getIsTeamMode()) {
@@ -118,10 +106,7 @@ abstract class CalendarFragment : Fragment() {
             }
     }
 
-
-
-    private fun decorateAllScheduleDots() {
-        // **중복 decorator 방지: 모두 clear**
+    private fun decorateCalendarWithDots(date: String) {
         calendarView.removeDecorators()
 
         val path = if (getIsTeamMode()) {
@@ -131,36 +116,25 @@ abstract class CalendarFragment : Fragment() {
         }
 
         db.collection(path)
+            .whereEqualTo("date", date)
             .get()
             .addOnSuccessListener { result ->
-                val grouped = result.documents
-                    .filter { doc ->
-                        val text = doc.getString("text")
-                        !text.isNullOrBlank()
-                    }
-                    .groupBy { it.getString("date") }
+                if (result.isEmpty) return@addOnSuccessListener
 
-                for ((date, docs) in grouped) {
-                    // ---------- [로그로 모든 값 추적!] ----------
-                    Log.d("DotCheck", "Firestore date string: $date, docs size: ${docs.size}")
-                    try {
-                        val split = date!!.split("-")
-                        val year = split[0].toInt()
-                        val month = split[1].toInt() // 반드시 1~12
-                        val dayOfMonth = split[2].toInt()
-                        val day = CalendarDay.from(year, month, dayOfMonth)
-                        Log.d("DotCheck", "addDecorator: $year-$month-$dayOfMonth, CalendarDay=$day")
-
-                        val colorHex = docs.first().getString("tagColor") ?: "#AAAAAA"
-                        val colorInt = android.graphics.Color.parseColor(colorHex)
-
-                        calendarView.addDecorator(ScheduleDotDecorator(listOf(day), colorInt))
-                    } catch (e: Exception) {
-                        Log.e("DotCheck", "dot error for date=$date", e)
-                    }
+                val first = result.documents.first()
+                val color = first.getString("tagColor") ?: "#AAAAAA"
+                try {
+                    val split = date.split("-")
+                    val year = split[0].toInt()
+                    val month = split[1].toInt()
+                    val day = split[2].toInt()
+                    val dayObj = CalendarDay.from(year, month, day)
+                    val colorInt = android.graphics.Color.parseColor(color)
+                    calendarView.addDecorator(ScheduleDotDecorator(listOf(dayObj), colorInt))
+                    calendarView.invalidateDecorators()
+                } catch (e: Exception) {
+                    Log.e("DotError", "decorateCalendarWithDots - $date", e)
                 }
-                // **dot 갱신 확실하게**
-                calendarView.invalidateDecorators()
             }
     }
 }
