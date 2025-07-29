@@ -9,19 +9,23 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.Firebase
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.firestore
 import org.checkerframework.framework.qual.FromByteCode
 
 class JoinTeam : AppCompatActivity() {
 
     private lateinit var editTextTeamCode: EditText
     private lateinit var buttonJoinTeam: Button
-    private lateinit var database: DatabaseReference // 파이어베이스 RD 참조
+
+    private var db = Firebase.firestore // 파이어베이스 firestore 참조
 
     // 현재 로그인된 사용자의 UID
     private val currentUserUID: String?
@@ -33,8 +37,6 @@ class JoinTeam : AppCompatActivity() {
 
         editTextTeamCode = findViewById<EditText>(R.id.editTextTeamCode)
         buttonJoinTeam = findViewById<Button>(R.id.buttonJoinTeam)
-
-        database = FirebaseDatabase.getInstance().getReference("teams")
 
         // 버튼 클릭 시
         buttonJoinTeam.setOnClickListener {
@@ -52,23 +54,24 @@ class JoinTeam : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // 입력된 팀 코드가 DB에 존재하는지 확인
-            database.child(teamCode).addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    // 팀 존재할 경우
-                    if (snapshot.exists()) {
-                        val teamName = snapshot.child("name").value.toString()
+            // 입력된 팀 코드가 firestore에 존재하는지 확인
+            db.collection("teams").document(teamCode).get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        val teamName = document.getString("name") ?: "팀"
 
-                        //1. 팀 멤버 목록에 현재 UID 추가
-                        database.child(teamCode).child("members").child(uid).setValue(true)
+                        // 해당 팀에 유저 UID 추가
+                        db.collection("teams").document(teamCode)
+                            .update("members.$uid", true)
 
-                        //2. 유저가 가입한 팀 목록에 팀 코드 주가
-                        val userTeamsRef = FirebaseDatabase.getInstance().getReference("users").child(uid).child("teams")
-                        userTeamsRef.child(teamCode).setValue(true)
+                        // 유저의 joinedTeams에 팀 등록
+                        db.collection("users"). document(uid)
+                            .collection("joinedTeams").document(teamCode)
+                            .set(mapOf("joinedAt" to Timestamp.now()))
 
-                        Toast.makeText(this@JoinTeam, "팀 \"$teamName\"에 참여하였습니다!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "\"$teamName\" 팀에 참여했습니다!", Toast.LENGTH_SHORT).show()
 
-                        //3. 가입 완료 후 ExistingTeam 화면으로 이동
+                        // 가입 완료 후 ExistingTeam 화면으로 이동
                         val intent = Intent(this@JoinTeam, ExistingTeam::class.java)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(intent)
@@ -79,11 +82,7 @@ class JoinTeam : AppCompatActivity() {
                     }
                 }
 
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@JoinTeam, "데이터베이스 오류: ${error.message}", Toast.LENGTH_SHORT).show()
-                }
 
-            })
         }
     }
 }

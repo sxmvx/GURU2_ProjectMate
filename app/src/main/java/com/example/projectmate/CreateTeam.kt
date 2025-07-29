@@ -10,8 +10,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.Firebase
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.firestore
 
 class CreateTeam : AppCompatActivity() {
 
@@ -33,8 +36,7 @@ class CreateTeam : AppCompatActivity() {
         CreatedCode = findViewById(R.id.CreatedCode)
         codeCopyButton = findViewById(R.id.copyCodeButton)
 
-        val database = FirebaseDatabase.getInstance()
-        val teamsRef = database.getReference("teams")
+        val db = Firebase.firestore
 
         // 버튼 클릭 시
         createButton.setOnClickListener {
@@ -64,22 +66,23 @@ class CreateTeam : AppCompatActivity() {
                 "members" to mapOf(uid to true)
             )
 
-            // Firebase DB에 팀 정보 저장
-            teamsRef.child(code).setValue(teamInfo)
+            // Firebstore에 팀 생성
+            db.collection("teams").document(code)
+                .set(teamInfo)
                 .addOnSuccessListener {
-                    //생성된 팀 코드 화면에 표시
                     CreatedCode.text = code
                     Toast.makeText(this, "팀 코드 생성 완료!", Toast.LENGTH_SHORT).show()
 
-                    //사용자 정보에 팀 코드 등록
-                    val userTeamsRef = database.getReference("users").child(uid).child("teams")
-                    userTeamsRef.child(code).setValue(true)
+                    // 사용자 정보에도 팀 등록
+                    db.collection("users").document(uid)
+                        .collection("joinedTeams").document(code)
+                        .set(mapOf("joinedAt" to Timestamp.now()))
 
-                    //JoinTeam 화면으로 이동
+                    // JoinTeam 화면으로 이동
                     val intent = Intent(this, JoinTeam::class.java)
                     intent.putExtra("teamCode", code)
                     startActivity(intent)
-                    finish() //현재 액티비티 종료
+                    finish()
                 }
                 .addOnFailureListener {
                     Toast.makeText(this, "팀 생성 실패: ${it.message}", Toast.LENGTH_SHORT).show()
