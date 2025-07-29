@@ -6,32 +6,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="top|center_horizontal"
-    android:padding="24dp"
-    >
+    android:padding="24dp">
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="400dp" />
 
-    <Button
-        android:id="@+id/btnExistingTeam"
+    <EditText
+        android:id="@+id/editTextTeamCode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="기존 팀과 함께 하기"
-        android:layout_marginBottom="20dp" />
+        android:text="팀 코드를 입력하세요"
+        android:layout_marginBottom="20dp"/>
 
     <Button
-        android:id="@+id/btnJoinWithCode"
+        android:id="@+id/buttonJoinTeam"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="팀 코드로 참여하기"
-        android:layout_marginBottom="20dp" />
-
-    <Button
-        android:id="@+id/btnCreateTeam"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="새로운 팀 생성" />
-
+        android:text="참여하기"/>
 
 </LinearLayout>
