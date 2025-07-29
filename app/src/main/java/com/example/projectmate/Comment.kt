@@ -1,8 +1,10 @@
 package com.example.projectmate
 
 data class Comment(
-    var name: String = "",
-    var content: String = "",
-    var timestamp: Long = 0L
+    val name: String = "",
+    val content: String = "",
+    val timestamp: Long = 0L,
+    val profileImageUrl: String = ""
 )
+
 

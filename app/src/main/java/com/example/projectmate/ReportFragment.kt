@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
+import com.bumptech.glide.Glide
 
 class ReportFragment : Fragment() {
     private lateinit var commentAdapter: CommentAdapter
@@ -89,9 +90,10 @@ class ReportFragment : Fragment() {
             val commentText = commentEditText.text.toString().trim()
             if (commentText.isNotEmpty()) {
                 val newComment = Comment(
-                    name = "익명",  // 또는 사용자 닉네임
+                    name = nickname,
                     content = commentText,
-                    timestamp = System.currentTimeMillis()
+                    timestamp = System.currentTimeMillis(),
+                    profileImageUrl = profileUrl ?: ""  // 여기가 프사!
                 )
 
                 db.collection("comments")
