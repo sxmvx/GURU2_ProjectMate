@@ -3,6 +3,7 @@ package com.example.projectmate
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -59,12 +60,24 @@ class HomeActivity : AppCompatActivity() {
 
         // 버튼 클릭 시 Todo_액티비티로 넘어감
         val TodoButton = findViewById<Button>(R.id.TodoButton)
+        val reportButton = findViewById<ImageButton>(R.id.reportBtn)
 
         TodoButton.setOnClickListener {
             val intent = Intent(this, Todo_team::class.java)
             intent.putExtra("nickname", UserInfo.nickname)
             intent.putExtra("profileUrl", UserInfo.profileUrl)
             startActivity(intent)
+        }
+
+        reportButton.setOnClickListener {
+            val nickname = UserInfo.nickname
+            val profileUrl = UserInfo.profileUrl
+
+            val fragment = ReportFragment.newInstance(nickname, profileUrl)
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .addToBackStack(null)
+                .commit()
         }
 
     }

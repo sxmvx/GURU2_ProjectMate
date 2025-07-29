@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +19,18 @@ class ReportFragment : Fragment() {
     private lateinit var commentAdapter: CommentAdapter
     private val commentList = mutableListOf<Comment>()
     private val db = FirebaseFirestore.getInstance()
+
+    companion object {
+        fun newInstance(nickname: String?, profileUrl: String?): ReportFragment {
+            val fragment = ReportFragment()
+            val args = Bundle().apply {
+                putString("nickname", nickname)
+                putString("profileUrl", profileUrl)
+            }
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +47,19 @@ class ReportFragment : Fragment() {
         val submitButton = view.findViewById<Button>(R.id.commentSubmitButton)
         val saveButton = view.findViewById<Button>(R.id.saveButton)
         val dateTextView = view.findViewById<TextView>(R.id.dateTV)
+
+        val nickname = arguments?.getString("nickname") ?: "사용자"
+        val profileUrl = arguments?.getString("profileUrl")
+
+        val nameTextView = view.findViewById<TextView>(R.id.nameTV)
+        val profileImage = view.findViewById<ImageView>(R.id.profileImage)
+
+        nameTextView.text = nickname
+
+        Glide.with(this)
+            .load(profileUrl ?: R.drawable.default_profile)
+            .circleCrop()
+            .into(profileImage)
 
         commentAdapter = CommentAdapter(commentList)
         recyclerView.adapter = commentAdapter
