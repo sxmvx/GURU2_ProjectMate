@@ -45,7 +45,7 @@ class ExistingTeam : AppCompatActivity() {
         //팀 클릭 시 해당 팀의 메인 화면으로 이동
         teamListView.setOnItemClickListener { _, _, position, _ ->
             val selectedTeamId = teamIdList[position]
-            val intent = Intent(this, TeamMainActivity::class.java) // 나중에 팀 메인화면 파일로 변경
+            val intent = Intent(this, HomeActivity::class.java) // 나중에 팀 메인화면 파일로 변경
             intent.putExtra("teamId", selectedTeamId)
             startActivity(intent)
         }

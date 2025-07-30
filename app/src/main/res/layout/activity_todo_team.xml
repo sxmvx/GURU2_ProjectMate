@@ -65,6 +65,7 @@
 
         <!-- 하단: todolist 정보 -->
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/todoRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="7">
@@ -72,5 +73,6 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
+        <!-- 뒤로 가기 버튼 -->
 
 </LinearLayout>

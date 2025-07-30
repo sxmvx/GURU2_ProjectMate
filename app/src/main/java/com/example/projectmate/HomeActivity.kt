@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.kakao.sdk.user.UserApiClient
 
-//홈 화면 클래스 (
+//홈 화면 클래스
 class HomeActivity : AppCompatActivity() {
 
     companion object {
