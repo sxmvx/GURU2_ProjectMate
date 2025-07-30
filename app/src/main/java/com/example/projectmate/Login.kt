@@ -64,7 +64,7 @@ class Login : AppCompatActivity() {
 
     //로그인 성공 시, 팀 로그인 진행
     private fun goToTeamLogin(){
-        val intent = Intent(this, TeamMainActivity::class.java)
+        val intent = Intent(this, Todo_team::class.java)
         startActivity(intent)
         finish()
     }

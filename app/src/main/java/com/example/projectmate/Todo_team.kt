@@ -1,5 +1,6 @@
 package com.example.projectmate
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
@@ -8,8 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.database.Query
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
+import java.util.Calendar
 
 class Todo_team : AppCompatActivity() {
 
@@ -20,6 +22,7 @@ class Todo_team : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_todo_team)
+
 
         //유저 닉네임과 프로필 사진 받아옴
         val nickname = intent.getStringExtra("nickname")
@@ -44,6 +47,7 @@ class Todo_team : AppCompatActivity() {
                 .into(profileImage)
         }
 
+
         //리사이클뷰를 xml, 어댑터와 연결
         recyclerView = findViewById(R.id.todoRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -61,14 +65,9 @@ class Todo_team : AppCompatActivity() {
             .orderBy("date", Query.Direction.ASCENDING)
             .get()
             .addOnSuccessListener { result ->
-                todoList.clear()
-                for (document in result) {
-                    val todo = document.toObject(TodoItem::class.java)
-                    todoList.add(todo)
-                }
-                todoAdapter.notifyDataSetChanged()
+                val todoList = result.map { it.toObject(TodoItem::class.java) }
+                todoAdapter.setDisplayList(todoList)
             }
-
             .addOnFailureListener { e ->
                 Log.e("TodoActivity", "Error loading todos", e)
             }
