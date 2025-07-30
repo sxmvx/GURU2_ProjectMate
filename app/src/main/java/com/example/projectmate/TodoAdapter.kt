@@ -7,21 +7,21 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+class TodoAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-class TodoAdapter(private var todoList: List<TodoItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
-    //기본 형태 구축
+    // 날짜 헤더 뷰
     class DateHeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val dateText: TextView = itemView.findViewById(R.id.dateHeaderText)
     }
 
+    // 할 일 뷰
     class TodoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val todoText: TextView = itemView.findViewById(R.id.todoText)
         val checkBox: CheckBox = itemView.findViewById(R.id.checkBox)
         val colorDot: View = itemView.findViewById(R.id.colorDot)
     }
 
-    //투두view에 표시할 각 줄 화면 생성
+    // 각 줄 화면 구성
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == 0) {
             val view = LayoutInflater.from(parent.context)
@@ -34,7 +34,6 @@ class TodoAdapter(private var todoList: List<TodoItem>) : RecyclerView.Adapter<R
         }
     }
 
-    //실제 데이터 꺼내서 item에 담음
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = displayList[position]) {
             is TodoDisplayItem.DateHeader -> {
@@ -51,7 +50,6 @@ class TodoAdapter(private var todoList: List<TodoItem>) : RecyclerView.Adapter<R
         }
     }
 
-    //item 개수 반환 ㅡ> 투두view에 몇 줄 띄울지 결정
     override fun getItemCount(): Int = displayList.size
 
     override fun getItemViewType(position: Int): Int {
@@ -78,5 +76,4 @@ class TodoAdapter(private var todoList: List<TodoItem>) : RecyclerView.Adapter<R
         displayList = result
         notifyDataSetChanged()
     }
-
 }
