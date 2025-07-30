@@ -2,5 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+<<<<<<< HEAD
     <color name="purple_200">#BB86FC</color>
 </resources>
+=======
+</resources>
+>>>>>>> f9c06176761ab9c7bc48d0aa008b8fbddb73ea64

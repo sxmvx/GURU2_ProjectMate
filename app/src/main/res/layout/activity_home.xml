@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".HomeActivity">
+
+    <!-- 상단: 프로필 정보 -->
+    <LinearLayout
+        android:id="@+id/teamInfoLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="30dp">
+
+        <!-- 유저 프로필 사진-->
+
+        <ImageView
+            android:id="@+id/profileImageView"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:scaleType="centerCrop"
+            android:layout_marginEnd="12dp"
+            android:layout_gravity="center"/>
+
+        <!-- 유저 닉네임-->
+        <TextView
+            android:id="@+id/nicknameTextView"
+            android:layout_width="114dp"
+            android:layout_height="wrap_content"
+            android:text="profile"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
+
+        <!-- 팀 이름 -->
+        <TextView
+            android:id="@+id/teamNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text=": teamname"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"/>
+
+        <ImageButton
+            android:id="@+id/reportBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_featured_play_list_24"
+            android:background="@null"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <!--임시~할일 들어갈 예정 -->
+    <!-- 보고서 프래그먼트 -->
+    <FrameLayout
+        android:id="@+id/fragment_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/reportBtn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:layout_margin="100dp"
+        android:id="@+id/TodoButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="todo" />
+
+</LinearLayout>

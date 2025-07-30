@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <resources>
     <style name="CalendarTitleText" parent="TextAppearance.AppCompat.Large">
         <item name="android:textSize">18sp</item>
@@ -5,3 +6,12 @@
         <item name="android:textStyle">bold</item>
     </style>
 </resources>
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CircleImage" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+</resources>
+>>>>>>> f9c06176761ab9c7bc48d0aa008b8fbddb73ea64
