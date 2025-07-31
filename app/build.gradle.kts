@@ -76,7 +76,6 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    implementation("com.kakao.sdk:v2-all:2.21.4") // kakao 전체 모듈 설치
     implementation ("com.github.bumptech.glide:glide:4.15.1") // glide 의존성 추가
     annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1") // "
 

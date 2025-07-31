@@ -18,8 +18,6 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven(url = "https://jitpack.io") // OK, 필요 시 유지
-        maven { url = java.net.URI("https://devrepo.kakao.com/nexus/content/groups/public/") }
-        // kakao SDK를 받아올 저장소 주소 작성
     }
 }
 

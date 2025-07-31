@@ -13,10 +13,10 @@
         android:id="@+id/teamInfoLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="2"
         android:orientation="horizontal"
-        android:padding="30dp"
-        android:gravity="bottom"
-        android:layout_weight="2">
+        android:gravity="center_vertical"
+        android:padding="30dp">
 
         <!-- 유저 프로필 사진-->
 
@@ -24,8 +24,8 @@
             android:id="@+id/profileImageView"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:scaleType="centerCrop"
-            android:layout_marginEnd="12dp" />
+            android:layout_marginEnd="12dp"
+            android:scaleType="centerCrop" />
 
         <!-- 유저 닉네임-->
         <TextView
@@ -42,32 +42,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text=": teamname"
+            android:text=": team19"
             android:textSize="24sp"
             android:textStyle="bold" />
 
     </LinearLayout>
 
-    <LinearLayout
+    <TextView
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:text="할 일"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="4dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="할 일"
-            android:textSize="34sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="20dp"/>
 
-    </LinearLayout>
 
         <!-- 하단: todolist 정보 -->
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/todoRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7">
+        android:layout_weight="7"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp">
 
 
     </androidx.recyclerview.widget.RecyclerView>
