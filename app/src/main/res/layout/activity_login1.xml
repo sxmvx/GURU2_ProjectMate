@@ -1,56 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="32dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:padding="32dp"
+    tools:context=".LoginActivity"> <!-- 필요 시 context 수정 -->
 
-    <EditText
-        android:id="@+id/EmailEditText"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="224dp"
-        android:hint="이메일"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/PasswordEditText"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:hint="비밀번호"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/EmailEditText" />
-
-    <Button
-        android:id="@+id/LoginButton"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/screenTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:text="로그인"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/PasswordEditText" />
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginTop="60dp"
+        android:textColor="@android:color/black" />
 
-    <Button
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/EmailEditText"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:hint="이메일"
+        android:padding="10dp"
+        app:counterEnabled="true"
+        app:endIconMode="clear_text"
+        app:helperText="example@abcd.com">
+
+        <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/email_textField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/PasswordEditText"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="비밀번호"
+        android:padding="10dp"
+        app:endIconMode="password_toggle"
+        app:helperText="6자 이상 입력하세요">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/password_textField"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/LoginButton"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="로그인"
+        android:textColor="@android:color/white"
+        app:backgroundTint="@color/pink"
+        app:cornerRadius="10dp" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/GoToSignupButton"
-        android:layout_width="0dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="회원가입 하러 가기"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/LoginButton" />
+        android:text="회원가입"
+        android:textColor="@android:color/black"
+        app:backgroundTint="@color/grey"
+        app:cornerRadius="10dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/logo" />
+
+</LinearLayout>

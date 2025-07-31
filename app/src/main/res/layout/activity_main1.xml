@@ -1,31 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="32dp">
+    android:orientation="vertical"
+    android:padding="32dp"
+    android:gravity="center_horizontal"
+    tools:context=".MainActivity">
 
-    <Button
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="188dp"
+        android:layout_height="133dp"
+        android:layout_marginTop="124dp"
+        android:src="@drawable/logo" />
+
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/LoginButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="250dp"
-        android:text="로그인 하러 가기"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="80dp"
+        android:text="이메일 로그인 / 회원가입"
+        android:textColor="@android:color/white"
+        app:backgroundTint="@color/pink"
+        app:cornerRadius="10dp" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/TeamLoginButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_width="250dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="15dp"
         android:text="팀 로그인 하러 가기"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/LoginButton" />
+        android:textColor="@android:color/black"
+        app:backgroundTint="@color/grey"
+        app:cornerRadius="10dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

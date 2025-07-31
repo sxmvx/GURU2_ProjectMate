@@ -15,6 +15,8 @@ import com.google.firebase.auth.FirebaseAuth
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
+
+    private lateinit var NameEditText: EditText
     private lateinit var EmailEditText: EditText
     private lateinit var PasswordEditText: EditText
     private lateinit var SignupButton: Button
@@ -27,16 +29,24 @@ class SignupActivity : AppCompatActivity() {
         //파이어 베이스 연결
         auth = FirebaseAuth.getInstance()
 
-        EmailEditText = findViewById(R.id.Email)
-        PasswordEditText = findViewById(R.id.Password)
+        NameEditText = findViewById(R.id.name_textField)
+        EmailEditText = findViewById(R.id.email_textField)
+        PasswordEditText = findViewById(R.id.password_textField)
         SignupButton = findViewById(R.id.SignupButton)
 
         SignupButton.setOnClickListener() {
-            var email = EmailEditText.text.toString()
-            val password = PasswordEditText.text.toString()
+            val name = NameEditText.text.toString().trim()
+            var email = EmailEditText.text.toString().trim()
+            val password = PasswordEditText.text.toString().trim()
 
-            if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(this, "이메일 혹은 비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
+            if (name.isEmpty() || email.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "모든 내용을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // 이메일 형식 검증
+            if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                Toast.makeText(this, "올바른 이메일 형식을 입력해주세요.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
