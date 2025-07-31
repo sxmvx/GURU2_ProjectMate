@@ -20,5 +20,8 @@ class DotDrawable(private val color: Int) : Drawable() {
 
     override fun setAlpha(alpha: Int) { paint.alpha = alpha }
     override fun setColorFilter(colorFilter: android.graphics.ColorFilter?) { paint.colorFilter = colorFilter }
+
+    @Suppress("DEPRECATION") // 오류 방지용...
+    @Deprecated("Deprecated by Android SDK") // 오류 방지용 22...
     override fun getOpacity(): Int = android.graphics.PixelFormat.TRANSLUCENT
 }

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 
 class TeamMainActivity : AppCompatActivity() {
 
+    private lateinit var btnPersonalHome: Button
     private lateinit var btnExistingTeam: Button
     private lateinit var btnJoinTeam : Button
     private lateinit var btnCreateTeam : Button
@@ -15,9 +16,15 @@ class TeamMainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_team)
 
+        btnPersonalHome = findViewById<Button>(R.id.btnPersonalHome)
         btnExistingTeam = findViewById<Button>(R.id.btnExistingTeam)
         btnJoinTeam = findViewById<Button>(R.id.btnJoinWithCode)
         btnCreateTeam = findViewById<Button>(R.id.btnCreateTeam)
+
+        btnExistingTeam.setOnClickListener {
+            val intent = Intent(this, CalendarFragment::class.java)
+            startActivity(intent)
+        }
 
         btnExistingTeam.setOnClickListener {
             val intent = Intent(this, ExistingTeam::class.java)

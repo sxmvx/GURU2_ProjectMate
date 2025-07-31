@@ -59,13 +59,14 @@ class CreateTeam : AppCompatActivity() {
             val code = (1..6).map {
                 (('A'..'Z') + ('0'..'9')).random()
             }.joinToString("")
+            generatedCode = code // 복사 기능 작동하도록 코드 저장
 
             // 팀 정보 맵 생성 (이름, 코드 포함)
             val teamInfo = mapOf(
                 "name" to teamName,
                 "code" to code,
                 // 멤버 목록 초기화 : 팀장(생성자) UID 추가
-                "members" to mapOf(uid to true)
+                "members" to listOf(uid) // 멤버 -> 리스트로
             )
 
             // Firebstore에 팀 생성
@@ -82,7 +83,7 @@ class CreateTeam : AppCompatActivity() {
 
                 }
                 .addOnFailureListener {
-                    Toast.makeText(this, "팀 생성 실패: ${it.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "팀 생성 실패", Toast.LENGTH_SHORT).show()
                 }
         }
 
@@ -100,11 +101,6 @@ class CreateTeam : AppCompatActivity() {
             clipboard.setPrimaryClip(clip)
 
             Toast.makeText(this, "팀 코드가 복사되었습니다!", Toast.LENGTH_SHORT).show()
-
-            // TeamMainActivity로 이동
-            val intent = Intent(this, TeamMainActivity::class.java)
-            startActivity(intent)
-            finish()
         }
 
     }

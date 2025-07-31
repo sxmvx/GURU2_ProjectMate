@@ -5,13 +5,14 @@ import android.provider.ContactsContract.CommonDataKinds.Email
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
+//import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.Firebase
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
@@ -55,16 +56,33 @@ class SignupActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            registerUser(email, password)
+            registerUser(name, email, password)
         }
     }
 
-    private fun registerUser(email: String, password: String) {
+    private fun registerUser(name: String, email: String, password: String) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show()
-                    finish() // 회원가입 후 이전 화면(로그인 화면)으로 돌아가기
+                    var user = auth.currentUser
+                    val uid = user?.uid ?: return@addOnCompleteListener
+                    val name = NameEditText.text.toString().trim()
+
+                    val userInfo = hashMapOf(
+                        "uid" to uid,
+                        "name" to name,
+                        "email" to email
+                    )
+
+                    FirebaseFirestore.getInstance().collection("users").document(uid)
+                        .set(userInfo)
+                        .addOnSuccessListener {
+                            Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show()
+                            finish()
+                        }
+                        .addOnFailureListener { e ->
+                            Toast.makeText(this, "회원가입 실패", Toast.LENGTH_SHORT).show()
+                        }
                 } else {
                     Toast.makeText(this, "회원가입 실패: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }

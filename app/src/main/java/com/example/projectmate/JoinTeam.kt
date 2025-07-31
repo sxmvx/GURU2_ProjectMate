@@ -10,6 +10,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.firestore
 
 class JoinTeam : AppCompatActivity() {
@@ -52,13 +53,13 @@ class JoinTeam : AppCompatActivity() {
                     if (document.exists()) {
                         val teamName = document.getString("name") ?: "팀"
 
-                        // 해당 팀에 유저 UID 추가
+                        // 해당 팀 members에 유저 UID 추가
                         db.collection("teams").document(teamCode)
-                            .update("members.$uid", true)
+                            .update("members", FieldValue.arrayUnion(uid))
 
 
                         // 유저의 joinedTeams에 팀 등록
-                        db.collection("users"). document(uid)
+                        db.collection("users").document(uid)
                             .collection("joinedTeams").document(teamCode)
                             .set(mapOf("joinedAt" to Timestamp.now()))
 

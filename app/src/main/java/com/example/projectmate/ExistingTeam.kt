@@ -3,6 +3,7 @@ package com.example.projectmate
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.TextView
@@ -21,8 +22,7 @@ class ExistingTeam : AppCompatActivity() {
     private val teamIdList = mutableListOf<String>() // 내부적으로 팀 ID 저장
 
     // 현재 로그인된 유저의 UID(FirebaseAuth에서 가져옴)
-    private val currentUserUID: String?
-        get() = FirebaseAuth.getInstance().currentUser?.uid
+    val currentUserUID = FirebaseAuth.getInstance().currentUser?.uid
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +61,8 @@ class ExistingTeam : AppCompatActivity() {
             .addOnSuccessListener { documents ->
                 if (documents.isEmpty) {
                     emptyTextView.text = "가입된 팀이 없습니다."
-                    emptyTextView.visibility = TextView.VISIBLE
+                    emptyTextView.visibility = View.VISIBLE
+                    teamListView.visibility = View.GONE
                     return@addOnSuccessListener
                 }
 
@@ -69,9 +70,10 @@ class ExistingTeam : AppCompatActivity() {
                 teamList.clear()
                 teamIdList.clear()
 
-                for (doc in documents) {
-                    val teamId = doc.id
+                val teamIds = documents.map { it.id }
+                var loadedCount = 0
 
+                for (teamId in teamIds) {
                     // Firestore: teams/{teamId}/name 필드 불러오기
                     db.collection("teams").document(teamId).get()
                         .addOnSuccessListener { teamDoc ->
@@ -79,16 +81,21 @@ class ExistingTeam : AppCompatActivity() {
                             if (teamName != null) {
                                 teamList.add(teamName)
                                 teamIdList.add(teamId)
+                            }
+                            loadedCount++
+                            if (loadedCount == teamIds.size) {
                                 adapter.notifyDataSetChanged()
                             }
                         }
                         .addOnFailureListener { e ->
-                            Log.e("Firebase", "팀 이름 불러오기 실패: ${e.message}")
+                            Log.e("Firebase", "팀 이름 불러오기 실패")
+                            loadedCount++
+                            if (loadedCount == teamIds.size) {
+                                adapter.notifyDataSetChanged()
+                            }
                         }
                 }
             }
-            .addOnFailureListener { e ->
-                Log.e("Firebase", "팀 목록 불러오기 실패: ${e.message}")
-            }
+
     }
 }
