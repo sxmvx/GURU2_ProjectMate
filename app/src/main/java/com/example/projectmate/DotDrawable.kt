@@ -1,8 +1,7 @@
-package com.example.test1.ui_team
+package com.example.projectmate
 
 import android.graphics.Canvas
 import android.graphics.Paint
-import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 
 class DotDrawable(private val color: Int) : Drawable() {

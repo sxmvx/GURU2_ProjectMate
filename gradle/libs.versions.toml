@@ -12,9 +12,10 @@ constraintlayout = "2.2.1"
 googleGmsGoogleServices = "4.4.3"
 firebaseAnalytics = "23.0.0"
 firebaseAuth = "24.0.0"
-firebaseDatabase = "22.0.0"
-firebaseDatabaseKtx = "22.0.0"
-firebaseFirestoreKtx = "25.0.0"
+firebaseFirestoreKtx = "26.0.0"
+firebaseFirestore = "26.0.0"
+firebaseDatabaseKtx = "23.1.0"
+firebaseDatabase = "23.1.0"
 
 
 [libraries]
@@ -31,6 +32,7 @@ firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 firebase-database-ktx = { group = "com.google.firebase", name = "firebase-database-ktx", version.ref = "firebaseDatabaseKtx" }
 firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
+firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

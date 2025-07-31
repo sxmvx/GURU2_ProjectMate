@@ -1,4 +1,4 @@
-package com.example.test1.ui_team
+package com.example.projectmate
 
 data class ScheduleItem(
     val content: String,

@@ -1,4 +1,4 @@
-package com.example.test1.ui_team
+package com.example.projectmate
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.test1.R
 
 class ScheduleAdapter :
     RecyclerView.Adapter<ScheduleAdapter.ViewHolder>() {

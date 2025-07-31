@@ -1,6 +1,4 @@
-package com.example.test1.ui_team
-
-import android.os.Bundle
+package com.example.projectmate
 
 class PersonalCalendarFragment : CalendarFragment() {
     override fun getIsTeamMode(): Boolean = false

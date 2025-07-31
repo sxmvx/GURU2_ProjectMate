@@ -1,15 +1,13 @@
-package com.example.test1
+package com.example.projectmate
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 <<<<<<< HEAD
-import com.example.test1.ui_team.TeamSelectFragment
 =======
-import com.example.test1.ui_team.PersonalCalendarFragment
-import com.example.test1.ui_team.TeamCalendarFragment
+
 >>>>>>> aa15941 (캘린더 + Firebase)
 
-class MainActivity : AppCompatActivity() {
+class MainHomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

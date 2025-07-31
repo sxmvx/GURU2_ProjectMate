@@ -1,4 +1,4 @@
-package com.example.test1.ui_team
+package com.example.projectmate
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,8 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.test1.R
-import androidx.fragment.app.add
 import androidx.fragment.app.replace
 
 class TeamSelectFragment : Fragment() {

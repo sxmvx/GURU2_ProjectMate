@@ -1,7 +1,4 @@
 <resources>
-<<<<<<< HEAD
-    <string name="app_name">Test1</string>
-=======
     <string name="app_name">Projectmate</string>
     <string name="kakao_app_key">36c0bcc3edd26aad541e355c4e7bb251</string>
     <string name="title_name">project mate</string>

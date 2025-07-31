@@ -1,56 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-<<<<<<< HEAD
-<<<<<<< HEAD
-    xmlns:tools="http://schemas.android.com/tools"
-=======
->>>>>>> aa15941 (캘린더 + Firebase)
-    package="com.example.test1">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application
-        android:allowBackup="true"
-        android:label="GURU2_ProjectMate"
-        android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-<<<<<<< HEAD
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
-        tools:targetApi="31">
-
-=======
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-
-        <!-- ✅ 앱 실행 진입점 -->
->>>>>>> aa15941 (캘린더 + Firebase)
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-<<<<<<< HEAD
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-    </application>
-
-=======
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
-
-    </application>
->>>>>>> aa15941 (캘린더 + Firebase)
-</manifest>
-=======
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.projectmate">
-
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <application
-        android:name=".GlobalApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -61,51 +13,27 @@
         android:theme="@style/Theme.Projectmate"
         tools:targetApi="31">
 
-        <activity
-            android:name=".CreateTeam"
-            android:exported="false" />
-        <activity
-            android:name=".JoinTeam"
-            android:exported="false" />
-        <activity
-            android:name=".ExistingTeam"
-            android:exported="false" />
-        <activity
-            android:name=".TeamMainActivity"
-            android:exported="true"/>
+        <!-- 로그인 + 팀 로그인 -->
+        <activity android:name=".LoginActivity" android:exported="false" />
+        <activity android:name=".SignupActivity" android:exported="false" />
+        <activity android:name=".CreateTeam" android:exported="false" />
+        <activity android:name=".ExistingTeam" android:exported="false" />
+        <activity android:name=".JoinTeam" android:exported="false" />
+        <activity android:name=".TeamMainActivity" android:exported="false" />
+
+        <activity android:name=".Todo_team" android:exported="false" />
+        <activity android:name=".HomeActivity" android:exported="false" />
+
+        <activity android:name=".MainHomeActivity" android:exported="false"/>
 
         <activity
-            android:name=".Todo_team"
-            android:exported="false" />
-        <activity
-            android:name=".HomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Login"
-            android:exported="true"
-            android:fitsSystemWindows="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-
-                <!-- 리다이렉트 URI: "kakao${NATIVE_APP_KEY}://oauth" -->
-                <data
-                    android:host="oauth"
-                    android:scheme="kakao36c0bcc3edd26aad541e355c4e7bb251" />
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
 
 </manifest>
->>>>>>> f9c06176761ab9c7bc48d0aa008b8fbddb73ea64

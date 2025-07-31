@@ -5,27 +5,19 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.Firebase
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.firestore
-import org.checkerframework.framework.qual.FromByteCode
 
 class JoinTeam : AppCompatActivity() {
 
     private lateinit var editTextTeamCode: EditText
     private lateinit var buttonJoinTeam: Button
 
-    private var db = Firebase.firestore // 파이어베이스 firestore 참조
+    private val db = Firebase.firestore // 파이어베이스 firestore 참조
 
     // 현재 로그인된 사용자의 UID
     private val currentUserUID: String?
@@ -35,8 +27,8 @@ class JoinTeam : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_join_team)
 
-        editTextTeamCode = findViewById<EditText>(R.id.editTextTeamCode)
-        buttonJoinTeam = findViewById<Button>(R.id.buttonJoinTeam)
+        editTextTeamCode = findViewById(R.id.editTextTeamCode)
+        buttonJoinTeam = findViewById(R.id.buttonJoinTeam)
 
         // 버튼 클릭 시
         buttonJoinTeam.setOnClickListener {
@@ -70,11 +62,6 @@ class JoinTeam : AppCompatActivity() {
                             .collection("joinedTeams").document(teamCode)
                             .set(mapOf("joinedAt" to Timestamp.now()))
 
-                        //2. 유저가 가입한 팀 목록에 팀 코드 추가
-                        val userTeamsRef = FirebaseDatabase.getInstance().getReference("users").child(uid).child("teams")
-                        userTeamsRef.child(teamCode).setValue(true)
-
-
                         Toast.makeText(this, "\"$teamName\" 팀에 참여했습니다!", Toast.LENGTH_SHORT).show()
 
                         // 가입 완료 후 ExistingTeam 화면으로 이동
@@ -87,8 +74,9 @@ class JoinTeam : AppCompatActivity() {
                         Toast.makeText(this@JoinTeam, "해당 팀 코드가 존재하지 않습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
-
-
+                .addOnFailureListener {
+                    Toast.makeText(this, "팀 정보를 가져오는 중 오류가 발생했습니다.", Toast.LENGTH_SHORT).show()
+                }
         }
     }
 }

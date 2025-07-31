@@ -1,4 +1,4 @@
-package com.example.test1.ui_team
+package com.example.projectmate
 
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade

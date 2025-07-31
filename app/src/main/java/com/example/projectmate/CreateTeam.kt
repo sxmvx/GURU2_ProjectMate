@@ -1,19 +1,18 @@
 package com.example.projectmate
 
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.Firebase
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.firestore
 
 class CreateTeam : AppCompatActivity() {
@@ -23,9 +22,12 @@ class CreateTeam : AppCompatActivity() {
     private lateinit var CreatedCode: TextView
     private lateinit var codeCopyButton: Button
 
+    // 생성된 코드
+    private var generatedCode: String? = null
+
     // 현재 로그인한 사용자 UID
     private val currentUserUID: String?
-        get() = FirebaseAuth.getInstance().currentUser?.uid ?: "test_user_uid"
+        get() = FirebaseAuth.getInstance().currentUser?.uid
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,15 +80,31 @@ class CreateTeam : AppCompatActivity() {
                         .collection("joinedTeams").document(code)
                         .set(mapOf("joinedAt" to Timestamp.now()))
 
-                    // JoinTeam 화면으로 이동
-                    val intent = Intent(this, JoinTeam::class.java)
-                    intent.putExtra("teamCode", code)
-                    startActivity(intent)
-                    finish()
                 }
                 .addOnFailureListener {
                     Toast.makeText(this, "팀 생성 실패: ${it.message}", Toast.LENGTH_SHORT).show()
                 }
+        }
+
+        // 복사하기 버튼 클릭 시
+        codeCopyButton.setOnClickListener {
+            val code = generatedCode
+            if (code.isNullOrEmpty()) {
+                Toast.makeText(this, "복사할 코드가 없습니다.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // 클립보드에 복사
+            val clipboard = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip: ClipData = ClipData.newPlainText("Team code", code)
+            clipboard.setPrimaryClip(clip)
+
+            Toast.makeText(this, "팀 코드가 복사되었습니다!", Toast.LENGTH_SHORT).show()
+
+            // TeamMainActivity로 이동
+            val intent = Intent(this, TeamMainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
 
     }
