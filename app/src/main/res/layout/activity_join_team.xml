@@ -34,19 +34,15 @@
             android:layout_height="wrap_content"
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
-<!--
 
-    <EditText
-        android:id="@+id/editTextTeamCode"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
-        android:hint="팀 코드를 입력하세요" />
--->
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonJoinTeam"
         android:layout_width="250dp"
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
-        android:text="참여하기" />
+        android:text="참여하기"
+        app:cornerRadius="12dp"
+        app:backgroundTint="@color/blue"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>
